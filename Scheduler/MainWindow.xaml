@@ -4,9 +4,47 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Scheduler"
+        xmlns:views="clr-namespace:Scheduler.UserControls"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow"
+        Height="720"
+        Width="1280"
+        WindowStartupLocation="CenterScreen"
+        FontSize="24">
+    <StackPanel HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch">
+        
+        <TabControl x:Name="tabControl"
+                    FontSize="15">
 
-    </Grid>
+            <TabItem Header="Home"
+                     Width="100">
+                <views:HomeView />
+            </TabItem>
+
+            <TabItem Header="Daily"
+                     Width="100">
+                <views:DailyView />
+            </TabItem>
+
+            <TabItem Header="Weekly"
+                     Width="100">
+                <views:WeeklyView />
+            </TabItem>
+
+            <TabItem Header="Monthly"
+                     Width="100">
+                <views:MonthlyView />
+            </TabItem>
+
+            <TabItem Header="Add/Remove"
+                     Width="100">
+                <views:AddRemoveView />
+            </TabItem>
+
+        </TabControl>
+        
+    </StackPanel>
+    
+    
 </Window>
