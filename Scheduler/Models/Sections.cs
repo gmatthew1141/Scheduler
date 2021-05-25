@@ -17,7 +17,21 @@ namespace Scheduler.Models {
 
             SectionList.Add(sec);
 
+            // save section to database
+            Database.AddSection(sec);
+
             Debug.WriteLine("number of sections: " + SectionList.Count);
+        }
+
+        public static Section GetSection(string sectionTitle) {
+            Debug.WriteLine("Section title: " + sectionTitle);
+            foreach (var sec in SectionList) {
+                if (sec.section.CompareTo(sectionTitle) == 0) {
+                    Debug.WriteLine("Found section with the title: " + sectionTitle);
+                    return sec;
+                }
+            }
+            return null;
         }
     }
 }

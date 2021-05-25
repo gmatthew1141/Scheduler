@@ -2,23 +2,19 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace Scheduler.Models {
     class Employees {
 
         public static ObservableCollection<Employee> EmployeesList = new ObservableCollection<Employee>();
         
-        public static void AddEmployee(string name, DateTime? joinDate, string section, string position) {
-            Position pos = new Position {
-                position = position
-            };
+        public static void AddEmployee(string name, DateTime joinDate, string section, string position) {
+            Position pos = Positions.GetPosition(position);
 
-            Section sec = new Section {
-                section = section
-            };
+            Section sec = Sections.GetSection(section);
 
             Employee employee = new Employee {
-                ID = GenerateID(),
                 Name = name,
                 JoinDate = joinDate.Date.ToString(),
                 EmployeePosition = pos,
@@ -27,6 +23,8 @@ namespace Scheduler.Models {
             };
 
             EmployeesList.Add(employee);
+            Database.AddEmployee(employee);
+            // add data to database
         }
 
         public static string GenerateID() {

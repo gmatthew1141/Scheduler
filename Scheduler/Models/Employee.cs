@@ -1,10 +1,11 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Scheduler.Models {
     class Employee {
-        public string ID { get; set; }
+        public ObjectId _id { get; set; }
         public string Name { get; set; }
         public string JoinDate { get; set; }
         public Position EmployeePosition { get; set; }

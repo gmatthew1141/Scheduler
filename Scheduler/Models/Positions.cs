@@ -17,9 +17,22 @@ namespace Scheduler.Models {
 
             PositionList.Add(pos);
 
+            // add position to database
+            Database.AddPosition(pos);
+
             Debug.WriteLine("number of positions: " + PositionList.Count);
         }
 
-        
+
+        public static Position GetPosition(string positionTitle) {
+            Debug.WriteLine("Position title: " + positionTitle);
+            foreach (var pos in PositionList) {
+                if (pos.position.CompareTo(positionTitle) == 0) {
+                    Debug.WriteLine("Found position with the title: " + positionTitle);
+                    return pos;
+                }
+            }
+            return null;
+        }
     }
 }

@@ -21,6 +21,10 @@ namespace Scheduler.UserControls {
         public AddRemoveView() {
             InitializeComponent();
 
+            // take data from database here
+            Employees.EmployeesList = Database.GetEmployees();
+            Positions.PositionList = Database.GetPositions();
+            Sections.SectionList = Database.GetSections();
         }
 
         public void SetVisibleGrid(int index) {
@@ -34,6 +38,8 @@ namespace Scheduler.UserControls {
                     SectionListGrid.Visibility = Visibility.Hidden;
 
                     EmployeeListBox.ItemsSource = Employees.EmployeesList;
+                    PositionComboBox.ItemsSource = Positions.PositionList;
+                    SectionComboBox.ItemsSource = Sections.SectionList;
 
                     break;
                 case 1:
@@ -71,11 +77,24 @@ namespace Scheduler.UserControls {
 
         private void AddEmployeeBtn_Click(object sender, RoutedEventArgs e) {
             var name = EmployeeNameTextBox.Text;
-            var joinDate = JoinDatePicker.SelectedDate;
-            var position = PositionComboBox.SelectedItem.ToString();
-            var section = SectionComboBox.SelectedItem.ToString();
 
-            Employees.AddEmployee(name, joinDate, section, position);
+            if (JoinDatePicker.SelectedDate == null || name.CompareTo("") == 0 
+                || PositionComboBox.SelectedItem == null || SectionComboBox.SelectedItem == null) {
+
+                // show pop up
+
+                return;
+            }
+
+            var joinDate = (DateTime)JoinDatePicker.SelectedDate;
+            var position = PositionComboBox.SelectedItem as Position;
+            var section = SectionComboBox.SelectedItem as Models.Section;
+
+            Employees.AddEmployee(name, joinDate, section.section, position.position);
+
+            // add employee to database
+
+            // show popup that tells the user an employee has been added
 
             // reset the form
             EmployeeNameTextBox.Text = "";
@@ -85,13 +104,35 @@ namespace Scheduler.UserControls {
         }
 
         private void AddPositionBtn_Click(object sender, RoutedEventArgs e) {
+
+            // Prevent the user to add a blank position
+            if (PositionTitleTextBox.Text.CompareTo("") == 0) {
+                
+                // show a pop up
+
+                return;
+            }
+
             Positions.AddPosition(PositionTitleTextBox.Text);
             PositionTitleTextBox.Text = "";
         }
 
         private void AddSectionBtn_Click(object sender, RoutedEventArgs e) {
+
+            // Prevent the user to add a blank section
+            if (SectionTitleTextBox.Text.CompareTo("") == 0) {
+                
+                // show popup
+
+                return;
+            }
+
             Sections.AddSection(SectionTitleTextBox.Text);
             SectionTitleTextBox.Text = "";
+        }
+
+        private void RemoveButton_Click(object sender, RoutedEventArgs e) {
+            Database.TestDB();
         }
     }
 }
