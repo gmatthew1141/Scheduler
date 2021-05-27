@@ -4,6 +4,30 @@
              xmlns:local="clr-namespace:Scheduler"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+
+        <DataTemplate x:Key="EmployeeListTemplate">
+            <TextBlock x:Name="ListBoxText"
+                       Text="{Binding Name}"
+                       VerticalAlignment="Center"
+                       Margin="10, 10, 10, 10" />
+        </DataTemplate>
+
+        <DataTemplate x:Key="PositionListTemplate">
+            <TextBlock x:Name="ListBoxText"
+                       Text="{Binding position}"
+                       VerticalAlignment="Center"
+                       Margin="10, 10, 10, 10" />
+
+        </DataTemplate>
+
+        <DataTemplate x:Key="SectionListTemplate">
+            <TextBlock x:Name="ListBoxText"
+                       Text="{Binding section}"
+                       VerticalAlignment="Center"
+                       Margin="10, 10, 10, 10" />
+
+        </DataTemplate>
+        
+        
     </Application.Resources>
 </Application>

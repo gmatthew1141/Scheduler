@@ -22,9 +22,11 @@ namespace Scheduler.UserControls {
             InitializeComponent();
 
             // take data from database here
-            Employees.EmployeesList = Database.GetEmployees();
-            Positions.PositionList = Database.GetPositions();
-            Sections.SectionList = Database.GetSections();
+            Employees.EmployeesList = Database.GetEmployeesFromDB();
+            Positions.PositionList = Database.GetPositionsFromDB();
+            Sections.SectionList = Database.GetSectionsFromDB();
+
+            DailyView.InitTable();
         }
 
         public void SetVisibleGrid(int index) {
@@ -82,6 +84,7 @@ namespace Scheduler.UserControls {
                 || PositionComboBox.SelectedItem == null || SectionComboBox.SelectedItem == null) {
 
                 // show pop up
+                MessageBoxResult lackInfoMessage = MessageBox.Show("Please enter all required information!");
 
                 return;
             }
@@ -95,6 +98,7 @@ namespace Scheduler.UserControls {
             // add employee to database
 
             // show popup that tells the user an employee has been added
+            MessageBoxResult successMessage = MessageBox.Show("Employee " + name + " successfully added to database.");
 
             // reset the form
             EmployeeNameTextBox.Text = "";
@@ -107,13 +111,16 @@ namespace Scheduler.UserControls {
 
             // Prevent the user to add a blank position
             if (PositionTitleTextBox.Text.CompareTo("") == 0) {
-                
+
+                MessageBoxResult enterTitleMessage = MessageBox.Show("Please enter position title!");
                 // show a pop up
 
                 return;
             }
 
             Positions.AddPosition(PositionTitleTextBox.Text);
+
+            MessageBoxResult successMessage = MessageBox.Show("Successfully added new position to database.");
             PositionTitleTextBox.Text = "";
         }
 
@@ -121,18 +128,51 @@ namespace Scheduler.UserControls {
 
             // Prevent the user to add a blank section
             if (SectionTitleTextBox.Text.CompareTo("") == 0) {
-                
+
                 // show popup
+                MessageBoxResult enterTitleMessage = MessageBox.Show("Please enter section title!");
 
                 return;
             }
 
             Sections.AddSection(SectionTitleTextBox.Text);
+            MessageBoxResult successMessage = MessageBox.Show("Successfully added new section to database.");
             SectionTitleTextBox.Text = "";
         }
 
-        private void RemoveButton_Click(object sender, RoutedEventArgs e) {
-            Database.TestDB();
+        private void EmployeeRemoveButton_Click(object sender, RoutedEventArgs e) {
+            var item = EmployeeListBox.SelectedItem as Employee;
+
+            Employees.RemoveEmployee(item);
+        }
+
+        private void PositionRemoveButton_Click(object sender, RoutedEventArgs e) {
+            var item = PositionListBox.SelectedItem as Position;
+
+            Positions.RemovePosition(item);
+        }
+
+        private void SectionRemoveButton_Click(object sender, RoutedEventArgs e) {
+            var item = SectionListBox.SelectedItem as Models.Section;
+
+            Sections.RemoveSection(item);
+
+        }
+
+        private void ClearEmployeeBtn_Click(object sender, RoutedEventArgs e) {
+            EmployeeNameTextBox.Text = "";
+            JoinDatePicker.SelectedDate = null;
+            JoinDatePicker.DisplayDate = DateTime.Today;
+            PositionComboBox.SelectedItem = null;
+            SectionComboBox.SelectedItem = null;
+        }
+
+        private void ClearPositionBtn_Click(object sender, RoutedEventArgs e) {
+            PositionTitleTextBox.Text = "";
+        }
+
+        private void ClearSectionBtn_Click(object sender, RoutedEventArgs e) {
+            SectionTitleTextBox.Text = "";
         }
     }
 }

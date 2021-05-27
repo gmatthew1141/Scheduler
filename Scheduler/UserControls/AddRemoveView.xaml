@@ -38,22 +38,16 @@
             </Grid.RowDefinitions>
 
             <ListBox x:Name="EmployeeListBox"
-                     Grid.Row="0">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock x:Name="ListBoxText"
-                                Text="{Binding Name}"
-                                VerticalAlignment="Center"
-                                Margin="10, 10, 10, 10" />
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
+                     Grid.Row="0"
+                     ItemTemplate="{StaticResource EmployeeListTemplate}">
+                
 
             </ListBox>
 
             <Button Grid.Row="1"
-                    x:Name="RemoveButton"
-                    Content="Remove Employee" 
-                    Click="RemoveButton_Click"/>
+                    x:Name="EmployeeRemoveButton"
+                    Content="Remove Employee"
+                    Click="EmployeeRemoveButton_Click"/>
         </Grid>
 
         <Grid x:Name="PositionListGrid"
@@ -67,22 +61,15 @@
             </Grid.RowDefinitions>
 
             <ListBox x:Name="PositionListBox"
-                     Grid.Row="0">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock x:Name="ListBoxText"
-                                Text="{Binding position}"
-                                VerticalAlignment="Center"
-                                Margin="10, 10, 10, 10" />
-
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
+                     Grid.Row="0"
+                     ItemTemplate="{StaticResource PositionListTemplate}">
 
             </ListBox>
 
             <Button Grid.Row="1"
                     x:Name="PositionRemoveButton"
-                    Content="Remove position"/>
+                    Content="Remove position"
+                    Click="PositionRemoveButton_Click"/>
         </Grid>
         
         <Grid x:Name="SectionListGrid"
@@ -96,22 +83,15 @@
             </Grid.RowDefinitions>
 
             <ListBox x:Name="SectionListBox"
-                     Grid.Row="0">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock x:Name="ListBoxText"
-                                    Text="{Binding section}"
-                                    VerticalAlignment="Center"
-                                    Margin="10, 10, 10, 10" />
-
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
+                     Grid.Row="0"
+                     ItemTemplate="{StaticResource SectionListTemplate}">
 
             </ListBox>
 
             <Button Grid.Row="1"
                     x:Name="SectionRemoveButton"
-                    Content="Remove Section"/>
+                    Content="Remove Section"
+                    Click="SectionRemoveButton_Click"/>
         </Grid>
 
         <Grid x:Name="EmployeeGrid"
@@ -176,7 +156,8 @@
             <Button x:Name="ClearEmployeeBtn"
                     Content="Clear"
                     Grid.Column="1"
-                    Grid.Row="4" />
+                    Grid.Row="4" 
+                    Click="ClearEmployeeBtn_Click"/>
 
         </Grid>
 
@@ -210,7 +191,8 @@
             <Button x:Name="ClearPositionBtn"
                     Content="Clear"
                     Grid.Column="1"
-                    Grid.Row="3" />
+                    Grid.Row="3" 
+                    Click="ClearPositionBtn_Click"/>
 
         </Grid>
 
@@ -244,7 +226,8 @@
             <Button x:Name="ClearSectionBtn"
                     Content="Clear"
                     Grid.Column="1"
-                    Grid.Row="3" />
+                    Grid.Row="3" 
+                    Click="ClearSectionBtn_Click"/>
 
         </Grid>
 

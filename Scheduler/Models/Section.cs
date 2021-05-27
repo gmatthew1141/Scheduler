@@ -6,7 +6,7 @@ using System.Text;
 namespace Scheduler.Models {
     class Section {
 
-        public ObjectId _id;
+        public ObjectId _id { get; set; }
         public string section { get; set; }
     }
 }

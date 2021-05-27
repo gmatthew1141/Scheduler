@@ -73,7 +73,7 @@ namespace Scheduler.Models {
             collection.InsertOne(sectionBson);
         }
 
-        public static ObservableCollection<Employee> GetEmployees() {
+        public static ObservableCollection<Employee> GetEmployeesFromDB() {
 
             var collection = database.GetCollection<BsonDocument>("employees");
 
@@ -91,7 +91,7 @@ namespace Scheduler.Models {
             return output;
         }
 
-        public static ObservableCollection<Position> GetPositions() {
+        public static ObservableCollection<Position> GetPositionsFromDB() {
 
             var collection = database.GetCollection<BsonDocument>("positions");
 
@@ -109,7 +109,7 @@ namespace Scheduler.Models {
             return output;
         }
 
-        public static ObservableCollection<Section> GetSections() {
+        public static ObservableCollection<Section> GetSectionsFromDB() {
 
             var collection = database.GetCollection<BsonDocument>("sections");
 
@@ -125,6 +125,32 @@ namespace Scheduler.Models {
             }
 
             return output;
+        }
+
+
+        public static void RemoveEmployeeFromDB(ObjectId employeeId) {
+            var collection = database.GetCollection<BsonDocument>("employees");
+
+            var deleteFilter = Builders<BsonDocument>.Filter.Eq("_id", employeeId);
+
+            collection.DeleteOne(deleteFilter);
+
+        }
+
+        public static void RemovePositionFromDB(ObjectId positionId) {
+            var collection = database.GetCollection<BsonDocument>("positions");
+
+            var deleteFilter = Builders<BsonDocument>.Filter.Eq("_id", positionId);
+
+            collection.DeleteOne(deleteFilter);
+        }
+
+        public static void RemoveSectionFromDB(ObjectId sectionId) {
+            var collection = database.GetCollection<BsonDocument>("sections");
+
+            var deleteFilter = Builders<BsonDocument>.Filter.Eq("_id", sectionId);
+
+            collection.DeleteOne(deleteFilter);
         }
 
 

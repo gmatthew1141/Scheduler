@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using MongoDB.Bson;
 
 namespace Scheduler.Models {
     class Employees {
@@ -15,6 +16,7 @@ namespace Scheduler.Models {
             Section sec = Sections.GetSection(section);
 
             Employee employee = new Employee {
+                _id = ObjectId.GenerateNewId(),
                 Name = name,
                 JoinDate = joinDate.Date.ToString(),
                 EmployeePosition = pos,
@@ -27,8 +29,12 @@ namespace Scheduler.Models {
             // add data to database
         }
 
-        public static string GenerateID() {
-            return Guid.NewGuid().ToString();
+        public static void RemoveEmployee(Employee employee) {
+            // remove from database 
+            Database.RemoveEmployeeFromDB(employee._id);
+
+            // remove from list
+            EmployeesList.Remove(employee);
         }
 
     }

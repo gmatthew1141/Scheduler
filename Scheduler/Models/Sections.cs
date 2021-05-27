@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using MongoDB.Bson;
 
 namespace Scheduler.Models {
     class Sections {
@@ -11,6 +12,7 @@ namespace Scheduler.Models {
 
         public static void AddSection(string sectionTitle) {
             Section sec = new Section {
+                _id = ObjectId.GenerateNewId(),
                 section = sectionTitle
             };
 
@@ -23,6 +25,8 @@ namespace Scheduler.Models {
             Debug.WriteLine("number of sections: " + SectionList.Count);
         }
 
+
+        // Find the section in the SectionList
         public static Section GetSection(string sectionTitle) {
             Debug.WriteLine("Section title: " + sectionTitle);
             foreach (var sec in SectionList) {
@@ -32,6 +36,17 @@ namespace Scheduler.Models {
                 }
             }
             return null;
+        }
+
+        public static void RemoveSection(Section section) {
+
+            // Remove section from database
+            Database.RemoveSectionFromDB(section._id);
+
+            // Remove section from list
+            SectionList.Remove(section);
+
+
         }
     }
 }

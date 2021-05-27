@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using MongoDB.Bson;
 
 namespace Scheduler.Models {
     class Positions {
@@ -11,6 +12,7 @@ namespace Scheduler.Models {
 
         public static void AddPosition(string positionTitle) {
             Position pos = new Position {
+                _id = ObjectId.GenerateNewId(),
                 position = positionTitle
             };
 
@@ -23,7 +25,7 @@ namespace Scheduler.Models {
             Debug.WriteLine("number of positions: " + PositionList.Count);
         }
 
-
+        // Find the position in the PositionList
         public static Position GetPosition(string positionTitle) {
             Debug.WriteLine("Position title: " + positionTitle);
             foreach (var pos in PositionList) {
@@ -33,6 +35,15 @@ namespace Scheduler.Models {
                 }
             }
             return null;
+        }
+
+        public static void RemovePosition(Position position) {
+
+            // remove from database
+            Database.RemovePositionFromDB(position._id);
+
+            // remove position from the list
+            PositionList.Remove(position);
         }
     }
 }
